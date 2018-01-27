@@ -1,10 +1,53 @@
 package edu.wvup.acottri9.chessboard;
 
 /**
- * Created by aaron on 1/26/2018.
+ * A class designed to represent the concept of a chess piece.
+ * Created by aaron on 1/27/2018.
  */
-
-public enum ChessPiece
+public class ChessPiece
 {
-    King, Queen, Pawn, Rook, Bishop, Knight
+    private Color color;
+    private PieceTypes piece;
+
+
+    /**
+     * Instantiates a new generic Chess piece.
+     */
+    public ChessPiece()
+    {
+
+    }
+
+    /**
+     * Instantiates a new Chess piece with a color and type.
+     *
+     * @param color the color
+     * @param piece the piece
+     */
+    public ChessPiece(Color color, PieceTypes piece)
+    {
+        this.color = color;
+        this.piece = piece;
+    }
+
+    /**
+     * Gets the color of the chess piece.
+     *
+     * @return the color
+     */
+    public Color getColor()
+    {
+        return color;
+    }
+
+    /**
+     * Gets the piece type.
+     *
+     * @return the piece
+     */
+    public PieceTypes getPiece()
+    {
+        return piece;
+    }
+
 }
