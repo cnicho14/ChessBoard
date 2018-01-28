@@ -8,7 +8,7 @@ public class ChessPiece
 {
     private Color color;
     private PieceTypes piece;
-
+    private Coordinate pos;
 
     /**
      * Instantiates a new generic Chess piece.
@@ -50,4 +50,13 @@ public class ChessPiece
         return piece;
     }
 
+    public Coordinate getPos()
+    {
+        return pos;
+    }
+
+    public void setPos(Coordinate pos)
+    {
+        this.pos = pos;
+    }
 }
