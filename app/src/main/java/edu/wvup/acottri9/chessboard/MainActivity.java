@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity
                 {
                     buttonView.setButtonText(row,col,start[row][col].toString());
                 }
+                else
+                {
+                    buttonView.setButtonText(row,col,"");
+                }
             }
         }
     }

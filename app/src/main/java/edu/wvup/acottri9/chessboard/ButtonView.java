@@ -31,7 +31,7 @@ public class ButtonView extends GridLayout
             {
 
                 newButtons[row][col] = new Button(context);
-                newButtons[row][col].setTextSize((int) ((width) * 0.2));
+                newButtons[row][col].setTextSize((int) ((width) * 0.15));
                 newButtons[row][col].setTextColor(Color.RED);
                 newButtons[row][col].setOnClickListener(listener);
                 if(row % 2 == 0 && col % 2 == 0)

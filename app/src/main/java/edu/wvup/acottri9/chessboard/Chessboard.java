@@ -12,7 +12,7 @@ public class Chessboard
     /**
      * The constant side.
      */
-    public static final int side = 7;
+    public static final int side = 8;
     private ChessPiece[][] game = new ChessPiece[side][side];
 
     /**
@@ -28,41 +28,40 @@ public class Chessboard
      */
     private void initializeBoard()
     {
-        int z = 0;
-        for(int i = 0; i < side - 1 ; i++)
+        for(int z = 0; z <= side - 1 ; z++)
         {
-           // for(int z = 0; z < 2 ; z++)
-           // {
-                if(z == 0)
+            for(int i = 0; z < 2 ; z++)
+            {
+                if(i == 0)
                 {
-                    if(i == 0 || i == side - 2)
+                    if(z == 0 || z == side - 1)
                     {
                         game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Rook);
                     }
-                    else if(i == 1 || i == side - 3)
+                    else if(z == 1 || z == side - 2)
                     {
                         game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Knight);
                     }
-                    else if(i == 2 || i == side - 4)
+                    else if(z == 2 || z == side - 3)
                     {
                         game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Bishop);
                     }
-                    else if(i == 3)
+                    else if(z == 3)
                     {
                         game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Queen);
                     }
-                    else if(i == 4)
+                    else if(z == 4)
                     {
                         game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.King);
                     }
                 }
-                else if(z == 1)
+                else if(i == 1)
                 {
                     game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Pawn);
                 }
 
 
-            //}
+            }
         }
 
         //for(int blackI = 0; blackI < PieceTypes.values().length - 1; blackI++)
@@ -174,13 +173,14 @@ public class Chessboard
      */
     public String toString()
     {
-        StringBuilder string = new StringBuilder(" ");
+        StringBuilder string = new StringBuilder(" \n");
         for(int row = 0; row < side; row++)
         {
             for(int column = 0; column < side; column++)
             {
                 string.append(" ").append(game[row][column]);
             }
+            string.append(" \n ");
         }
         return string.toString();
     }
