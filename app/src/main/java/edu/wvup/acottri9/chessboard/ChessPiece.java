@@ -62,6 +62,33 @@ public class ChessPiece
 
     public String toString()
     {
-        return piece.toString();
+        if(piece == PieceTypes.Pawn)
+        {
+            return "P";
+        }
+        else if(piece == PieceTypes.Rook)
+        {
+            return "R";
+        }
+        else if(piece == PieceTypes.Knight)
+        {
+            return "K";
+        }
+        else if(piece == PieceTypes.Bishop)
+        {
+            return "B";
+        }
+        else if(piece == PieceTypes.Queen)
+        {
+            return "Q";
+        }
+        else if(piece == PieceTypes.King)
+        {
+            return "KG";
+        }
+        else
+        {
+            return piece.toString();
+        }
     }
 }
