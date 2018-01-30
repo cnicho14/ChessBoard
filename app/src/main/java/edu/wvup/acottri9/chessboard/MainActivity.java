@@ -2,13 +2,12 @@ package edu.wvup.acottri9.chessboard;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.Toast;
 
 /**
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         chessGame = new Chessboard();
+        Log.w("MainActivity",chessGame.toString());
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         width = displayMetrics.widthPixels;
@@ -72,24 +72,6 @@ public class MainActivity extends AppCompatActivity
     {
         buttonView.resetButtons();
     }
-
-    /**
-     * Update.
-     *
-     * @param row the row
-     * @param col the col
-     */
-    public void update(int row, int col)
-    {
-        /*
-        *Click test code
-        Log.w("MainActivity","Inside update: " + row + " ," + col);
-        newButtons[row][col].setText("X");
-        */
-
-
-    }
-
 
     private class ButtonHandler implements View.OnClickListener
     {
