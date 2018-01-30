@@ -11,85 +11,71 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity
 {
     private Chessboard chessGame;
-    private Button[][] newButtons; // These are the tiles
+    private ButtonView buttonView;
+
+    private int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         chessGame = new Chessboard();
-        buildGuiByCode();
-    }
-
-    public void buildGuiByCode()
-    {
-        //From
-        //https://stackoverflow.com/questions/4743116/get-screen-width-and-height/4744499
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
+        width = displayMetrics.widthPixels;
+        ButtonHandler bh = new ButtonHandler();
 
-        //Create the layout manager as a GridLayout
-        GridLayout gridLayout = new GridLayout(this);
-        gridLayout.setColumnCount(Chessboard.width);
-        gridLayout.setRowCount(Chessboard.height);
-
-        //Create the buttons and add them to the gridLayout
-        newButtons = new Button[Chessboard.width][Chessboard.height];
-         ChessPiece[][] start = chessGame.getCurrentGame();
-
-        for(int row = 0; row < Chessboard.width - 1; row++)
+        buttonView = new ButtonView(this,width/Chessboard.side,Chessboard.side,bh);
+        buildButtonText();
+        buttonView.setOnClickListener(new View.OnClickListener()
         {
-            for(int col = 0; col < Chessboard.height - 1; col++)
+            @Override
+            public void onClick(View view)
             {
-
-                newButtons[row][col] = new Button(this);
-                newButtons[row][col].setTextSize((int) ((width/ Chessboard.width) * 0.2));
-                newButtons[row][col].setTextColor(Color.GRAY);
-                if(start[row][col] != null)
-                {
-                    newButtons[row][col].setText(start[row][col].toString());
-                }
-                ButtonHandler bh = new ButtonHandler();
-                newButtons[row][col].setOnClickListener(bh);
-
-                if(row % 2 == 0 && col % 2 == 0)
-                {
-                    newButtons[row][col].setBackgroundColor(Color.BLACK);
-                    // Both spots are even
-                }
-                else if(row % 2 == 0 && col % 2 != 0)
-                {
-                    newButtons[row][col].setBackgroundColor(Color.BLACK);
-                    // Even row, uneven column
-                }
-                else if(row % 2 != 0 && col % 2 == 0)
-                {
-                    newButtons[row][col].setBackgroundColor(Color.WHITE);
-                    //Uneven row, even column
-                }
-                else
-                {
-                    newButtons[row][col].setBackgroundColor(Color.WHITE);
-                    //Uneven row, uneven column
-                }
-
-
-                // We need all the tiles to fit, so we need to divide
-                gridLayout.addView(newButtons[row][col],width/ Chessboard.width,height / Chessboard.height);
+                revert();
             }
+        });
 
-        }
-
-        // Set gridLayout as the View of this Activity
-        setContentView(gridLayout);
-
+        setContentView(buttonView);
     }
 
+    /**
+     * Sets the button text
+     */
+    public void buildButtonText()
+    {
+
+        //Create the buttons and add them to the gridLayout
+         ChessPiece[][] start = chessGame.getCurrentGame();
+        for(int row = 0; row < Chessboard.side - 1; row++)
+        {
+            for (int col = 0; col < Chessboard.side - 1; col++)
+            {
+                buttonView.setButtonText(row,col,start[row][col].toString());
+            }
+        }
+    }
+
+    /**
+     * Revert.
+     */
+    public void revert()
+    {
+        buttonView.resetButtons();
+    }
+
+    /**
+     * Update.
+     *
+     * @param row the row
+     * @param col the col
+     */
     public void update(int row, int col)
     {
         /*
@@ -100,7 +86,7 @@ public class MainActivity extends AppCompatActivity
         try
         {
             Coordinate[] play = chessGame.play(row,col);
-            newButtons[row][col].setBackgroundColor(Color.GREEN);
+            buttonView.setButtonColor(row,col, Color.GREEN);
 
             if(play == null)
             {
@@ -108,7 +94,7 @@ public class MainActivity extends AppCompatActivity
             }
             for(Coordinate coordinate : play)
             {
-                newButtons[coordinate.getX()][coordinate.getY()].setBackgroundColor(Color.GREEN);
+                buttonView.setButtonColor(coordinate.getX(),coordinate.getY(),Color.GREEN);
             }
         }
         catch(IllegalArgumentException exp)
@@ -123,32 +109,17 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void toggleButtons(boolean enabled)
-    {
-        for(int row = 0; row < Chessboard.width; row++)
-        {
-            for(int col = 0; col < Chessboard.height; col++)
-            {
-                newButtons[row][col].setEnabled(enabled);
-            }
-        }
-    }
-
     private class ButtonHandler implements View.OnClickListener
     {
 
         @Override
         public void onClick(View view)
         {
-            Log.w("MainActivity", " Inside onClick, v = " + view);
-            for(int row = 0; row < Chessboard.width ; row++)
+            for(int row = 0; row < Chessboard.side - 1 ; row++)
             {
-                for(int column = 0; column < Chessboard.height; column++)
+                for(int column = 0; column < Chessboard.side - 1; column++)
                 {
-                    if(view == newButtons[row][column])
-                    {
-                        update(row,column);
-                    }
+
                 }
             }
         }

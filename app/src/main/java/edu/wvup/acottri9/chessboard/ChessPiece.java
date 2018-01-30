@@ -6,7 +6,7 @@ package edu.wvup.acottri9.chessboard;
  */
 public class ChessPiece
 {
-    private Color color;
+    private PieceColor PieceColor;
     private PieceTypes piece;
     private Coordinate pos;
 
@@ -19,25 +19,25 @@ public class ChessPiece
     }
 
     /**
-     * Instantiates a new Chess piece with a color and type.
+     * Instantiates a new Chess piece with a PieceColor and type.
      *
-     * @param color the color
+     * @param PieceColor the PieceColor
      * @param piece the piece
      */
-    public ChessPiece(Color color, PieceTypes piece)
+    public ChessPiece(PieceColor PieceColor, PieceTypes piece)
     {
-        this.color = color;
+        this.PieceColor = PieceColor;
         this.piece = piece;
     }
 
     /**
-     * Gets the color of the chess piece.
+     * Gets the PieceColor of the chess piece.
      *
-     * @return the color
+     * @return the PieceColor
      */
-    public Color getColor()
+    public PieceColor getPieceColor()
     {
-        return color;
+        return PieceColor;
     }
 
     /**

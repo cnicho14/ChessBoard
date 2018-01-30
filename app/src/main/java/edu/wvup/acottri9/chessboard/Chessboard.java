@@ -6,17 +6,18 @@ import java.util.ArrayList;
  * The concept of a chess board.
  * Created by aaron on 1/26/2018.
  */
-
-/*
- *
- *
- */
 public class Chessboard
 {
 
-    public static final int width = 7;
-    public static final int height = 7;
-    private ChessPiece[][] game = new ChessPiece[width][height];
+    /**
+     * The constant side.
+     */
+    public static final int side = 7;
+    private ChessPiece[][] game = new ChessPiece[side][side];
+
+    /**
+     * Instantiates a new Chessboard.
+     */
     public Chessboard()
     {
         initializeBoard();
@@ -27,25 +28,55 @@ public class Chessboard
      */
     private void initializeBoard()
     {
-        for(int i = 0; i < PieceTypes.values().length - 1 ; i++)
+        int z = 0;
+        for(int i = 0; i < side - 1 ; i++)
         {
-            for(int z = 0; z < 2 ; z++)
-            {
-                game[i][z] = new ChessPiece(Color.White,PieceTypes.values()[i]);
-            }
+           // for(int z = 0; z < 2 ; z++)
+           // {
+                if(z == 0)
+                {
+                    if(i == 0 || i == side - 2)
+                    {
+                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Rook);
+                    }
+                    else if(i == 1 || i == side - 3)
+                    {
+                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Knight);
+                    }
+                    else if(i == 2 || i == side - 4)
+                    {
+                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Bishop);
+                    }
+                    else if(i == 3)
+                    {
+                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Queen);
+                    }
+                    else if(i == 4)
+                    {
+                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.King);
+                    }
+                }
+                else if(z == 1)
+                {
+                    game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Pawn);
+                }
+
+
+            //}
         }
 
-        for(int blackI = 0; blackI < PieceTypes.values().length - 1; blackI++)
-        {
-            for(int blackZ = height - 1; blackZ > height - 2; blackZ--)
-            {
-                game[blackI][blackZ] = new ChessPiece(Color.Black,PieceTypes.values()[blackI]);
-            }
-        }
+        //for(int blackI = 0; blackI < PieceTypes.values().length - 1; blackI++)
+        //{
+        //    for(int blackZ = side - 1; blackZ > side - 2; blackZ--)
+        //    {
+        //        game[blackI][blackZ] = new ChessPiece(PieceColor.Black,PieceTypes.values()[blackI]);
+         //   }
+        //}
     }
 
     /**
      * Returns everywhere a piece can go.
+     *
      * @param row : the row the chess piece is in
      * @param col : the column the chess piece is in
      * @return an array of indexes we can move to.
@@ -58,38 +89,76 @@ public class Chessboard
         }
         else
         {
-            if(game[row][col].getPiece() == PieceTypes.Pawn && game[row + 1][col] == null)
+            if(game[row][col].getPiece() == PieceTypes.Pawn)
             {
-                Coordinate[] array = {new Coordinate(row + 1, col)};
-                return array;
+                if(game[row + 1][col] == null)
+                {
+                    Coordinate[] array = {new Coordinate(row + 1, col)};
+                    return array;
+                }
+                else if(game[row + 1][col] != null)
+                {
+                    return null;
+                }
             }
-            else if(game[row][col].getPiece() == PieceTypes.Pawn && game[row + 1][col] != null)
-            {
-                return null;
-            }
+
             //I don`t remember how any other pieces move. The rest need to be added.
-            if (game[row][col].getPiece() == PieceTypes.Rook)
+            else if (game[row][col].getPiece() == PieceTypes.Rook)
             {
                 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
                 boolean canMove = true;
-                //int checkLeft = 1;
-                //int checkRight = 1;
+                boolean blockedLeft = false;
+                boolean blockRight = false;
+                boolean blockedUp = false;
+                boolean blockedDown = false;
+                int checkLeft = 1;
+                int checkRight = 1;
                 //Check horizontal
-                //while(canMove)
-               // {
-                   // if()
-                //}
+                while(canMove)
+                {
+                    if(blockedLeft == false)
+                    {
+                        while(row - checkLeft > 0)
+                        {
+                            if(game[row - checkLeft][col] == null)
+                            {
+                               coordinateArrayList.add(new Coordinate((row - checkLeft),col));
+                            }
+                        }
+                        blockedLeft = true;
+                    }
+                    canMove = false;
+                }
+                return coordinateArrayList.toArray(new Coordinate[coordinateArrayList.size()]);
+            }
+            else if(game[row][col].getPiece() == PieceTypes.Knight)
+            {
+                ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
+                if(game[row + 1][col + 2].getPiece() == null)
+                {
+                    coordinateArrayList.add(new Coordinate(row + 1, col + 2));
+                }
+                if(game[row + 2][col + 1].getPiece() == null)
+                {
+                    coordinateArrayList.add(new Coordinate(row + 2, col + 1));
+                }
+                return coordinateArrayList.toArray(new Coordinate[2]);
             }
         }
         return null;
     }
 
+    /**
+     * Get current game chess pieces [ ] [ ].
+     *
+     * @return the chess pieces [ ] [ ]
+     */
     public ChessPiece[][] getCurrentGame()
     {
-        ChessPiece[][] chessPieces = new ChessPiece[width][height];
-        for(int i = 0; i < width - 1; i++)
+        ChessPiece[][] chessPieces = new ChessPiece[side][side];
+        for(int i = 0; i < side - 1; i++)
         {
-            for(int z = 0; z < height - 1; z++)
+            for(int z = 0; z < side - 1; z++)
             {
                 chessPieces[i][z] = game[i][z];
             }
@@ -98,6 +167,11 @@ public class Chessboard
     }
 
 
+    /**
+     * Result string.
+     *
+     * @return the string form of this object
+     */
     public String result()
     {
         return "";
