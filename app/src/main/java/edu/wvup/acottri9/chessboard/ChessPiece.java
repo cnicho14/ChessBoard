@@ -59,4 +59,9 @@ public class ChessPiece
     {
         this.pos = pos;
     }
+
+    public String toString()
+    {
+        return piece.toString();
+    }
 }
