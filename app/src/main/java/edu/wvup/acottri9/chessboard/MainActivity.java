@@ -57,7 +57,10 @@ public class MainActivity extends AppCompatActivity
         {
             for (int col = 0; col < Chessboard.side - 1; col++)
             {
-                buttonView.setButtonText(row,col,start[row][col].toString());
+                if(start[row][col] != null)
+                {
+                    buttonView.setButtonText(row,col,start[row][col].toString());
+                }
             }
         }
     }
@@ -83,28 +86,7 @@ public class MainActivity extends AppCompatActivity
         Log.w("MainActivity","Inside update: " + row + " ," + col);
         newButtons[row][col].setText("X");
         */
-        try
-        {
-            Coordinate[] play = chessGame.play(row,col);
-            buttonView.setButtonColor(row,col, Color.GREEN);
 
-            if(play == null)
-            {
-                return;
-            }
-            for(Coordinate coordinate : play)
-            {
-                buttonView.setButtonColor(coordinate.getX(),coordinate.getY(),Color.GREEN);
-            }
-        }
-        catch(IllegalArgumentException exp)
-        {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, " " + exp.getMessage(), duration);
-            toast.show();
-        }
 
     }
 
@@ -119,7 +101,31 @@ public class MainActivity extends AppCompatActivity
             {
                 for(int column = 0; column < Chessboard.side - 1; column++)
                 {
+                    if(buttonView.isButton((Button)view,row,column))
+                    {
+                        try
+                        {
+                            Coordinate[] play = chessGame.play(row,column);
+                            buttonView.setButtonColor(row,column, Color.GREEN);
 
+                            if(play == null)
+                            {
+                                return;
+                            }
+                            for(Coordinate coordinate : play)
+                            {
+                                buttonView.setButtonColor(coordinate.getX(),coordinate.getY(),Color.GREEN);
+                            }
+                        }
+                        catch(IllegalArgumentException exp)
+                        {
+                            Context context = getApplicationContext();
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, " " + exp.getMessage(), duration);
+                            toast.show();
+                        }
+                    }
                 }
             }
         }

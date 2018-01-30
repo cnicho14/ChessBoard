@@ -168,12 +168,20 @@ public class Chessboard
 
 
     /**
-     * Result string.
+     *
      *
      * @return the string form of this object
      */
-    public String result()
+    public String toString()
     {
-        return "";
+        StringBuilder string = new StringBuilder(" ");
+        for(int row = 0; row < side; row++)
+        {
+            for(int column = 0; column < side; column++)
+            {
+                string.append(" ").append(game[row][column]);
+            }
+        }
+        return string.toString();
     }
 }
