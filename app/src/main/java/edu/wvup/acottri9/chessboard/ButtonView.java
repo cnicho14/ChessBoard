@@ -11,7 +11,7 @@ import android.widget.GridLayout;
  */
 public class ButtonView extends GridLayout
 {
-    private int side;
+    private int SIDE;
     private Button[][] newButtons; // These are the tiles
 
     /**
@@ -19,21 +19,22 @@ public class ButtonView extends GridLayout
      *
      * @param context  the activity context
      * @param width    the width
-     * @param newSide  the new side count
+     * @param newSide  the new SIDE count
      * @param listener the listener
      */
     public ButtonView(Context context, int width, int newSide, View.OnClickListener listener)
     {
         super(context);
-        side = newSide;
-        setColumnCount(side);
-        setRowCount(side);
+        SIDE = newSide;
+        newButtons = new Button[Chessboard.SIDE][Chessboard.SIDE];
+        setColumnCount(SIDE);
+        setRowCount(SIDE + 1);
 
         //Create the buttons and add them to this GridLayout
-        newButtons = new Button[Chessboard.side][Chessboard.side];
-        for(int row = 0; row < Chessboard.side - 1; row++)
+
+        for(int row = 0; row < Chessboard.SIDE - 1; row++)
         {
-            for(int col = 0; col < Chessboard.side - 1; col++)
+            for(int col = 0; col < Chessboard.SIDE - 1; col++)
             {
 
                 newButtons[row][col] = new Button(context);
@@ -107,9 +108,9 @@ public class ButtonView extends GridLayout
      */
     public void resetButtons()
     {
-        for(int row = 0; row < Chessboard.side - 1; row++)
+        for(int row = 0; row < Chessboard.SIDE - 1; row++)
         {
-            for (int col = 0; col < Chessboard.side - 1; col++)
+            for (int col = 0; col < Chessboard.SIDE - 1; col++)
             {
 
                 if(row % 2 == 0 && col % 2 == 0)

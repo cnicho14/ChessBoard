@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         width = displayMetrics.widthPixels;
         ButtonHandler bh = new ButtonHandler();
 
-        buttonView = new ButtonView(this,(int)Math.floor(width/Chessboard.side), Chessboard.side,bh);
+        buttonView = new ButtonView(this,(int)Math.floor(width/Chessboard.SIDE), Chessboard.SIDE,bh);
         buildButtonText();
         buttonView.setOnClickListener(new View.OnClickListener()
         {
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity
          ChessPiece[][] start = chessGame.getCurrentGame();
         //String[] startString = chessGame.getBoardAsString().split("\n");
 
-        for(int row = 0; row < Chessboard.side - 1; row++)
+        for(int row = 0; row < Chessboard.SIDE - 1; row++)
         {
-            for (int col = 0; col < Chessboard.side - 1; col++)
+            for (int col = 0; col < Chessboard.SIDE - 1; col++)
             {
                 if(start[row][col] != null)
                 {
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onClick(View view)
         {
-            for(int row = 0; row < Chessboard.side - 1 ; row++)
+            for(int row = 0; row < Chessboard.SIDE - 1 ; row++)
             {
-                for(int column = 0; column < Chessboard.side - 1; column++)
+                for(int column = 0; column < Chessboard.SIDE - 1; column++)
                 {
                     if(buttonView.isButton((Button)view,row,column))
                     {

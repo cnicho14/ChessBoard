@@ -10,10 +10,10 @@ public class Chessboard
 {
 
     /**
-     * The constant side.
+     * The constant SIDE.
      */
-    public static final int side = 8;
-    private ChessPiece[][] game = new ChessPiece[side][side];
+    public static final int SIDE = 8;
+    private ChessPiece[][] game = new ChessPiece[SIDE][SIDE];
 
     /**
      * Instantiates a new Chessboard.
@@ -28,17 +28,17 @@ public class Chessboard
      */
     private void initializeBoard()
     {
-        for(int z = 0; z <= side - 1 ; z++)
+        for(int z = 0; z <= SIDE - 1 ; z++)
         {
             for(int i = 0; i < 2 ; i++)
             {
                 if(i == 0)
                 {
-                    if(z == 0 || z == side - 1)
+                    if(z == 0 || z == SIDE - 1)
                     {
                         game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Rook);
                     }
-                    else if(z == 1 || z == side - 2)
+                    else if(z == 1 || z == SIDE - 2)
                     {
                         game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Knight);
                     }
@@ -64,17 +64,17 @@ public class Chessboard
             }
         }
 
-        for(int otherZ = 0; otherZ <= side - 1 ; otherZ++)
+        for(int otherZ = 0; otherZ <= SIDE - 1 ; otherZ++)
         {
-            for(int otherI = side - 1; otherI > 0 ; otherI--)
+            for(int otherI = SIDE - 1; otherI > 0 ; otherI--)
             {
-                if(otherI == 0)
+                if(otherI == SIDE - 1)
                 {
-                    if(otherZ == 0 || otherZ == side - 1)
+                    if(otherZ == 0 || otherZ == SIDE - 1)
                     {
                         game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Rook);
                     }
-                    else if(otherZ == 1 || otherZ == side - 2)
+                    else if(otherZ == 1 || otherZ == SIDE - 2)
                     {
                         game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Knight);
                     }
@@ -91,7 +91,7 @@ public class Chessboard
                         game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.King);
                     }
                 }
-                else if(otherI == 1)
+                else if(otherI == SIDE - 2)
                 {
                     game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Pawn);
                 }
@@ -148,7 +148,7 @@ public class Chessboard
                 {
                     if(blockedRight == false)
                     {
-                        while(row + checkLeft < Chessboard.side)
+                        while(row + checkLeft < Chessboard.SIDE)
                         {
                             checkLeft++;
                             if(game[row + checkLeft][col] == null)
@@ -199,7 +199,7 @@ public class Chessboard
                     }
                     if(blockedDown == false)
                     {
-                        while(col + checkDown < Chessboard.side)
+                        while(col + checkDown < Chessboard.SIDE)
                         {
                             checkDown++;
                             if(game[row][col + checkDown] == null)
@@ -238,9 +238,9 @@ public class Chessboard
 			else if(game[row][col].getPiece() == PieceTypes.Bishop)
 			{
                 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
-				for(int i = 0; i < Chessboard.side; i++)
+				for(int i = 0; i < Chessboard.SIDE; i++)
                 {
-                    for(int z = 0; z < Chessboard.side; i++)
+                    for(int z = 0; z < Chessboard.SIDE; i++)
                     {
                         if (game[i][z] == null) {
                             coordinateArrayList.add(new Coordinate(i, z));
@@ -254,7 +254,7 @@ public class Chessboard
 			else if(game[row][col].getPiece() == PieceTypes.King)
 			{
 				 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
-				 if(row + 1 > Chessboard.side - 1 || col + 1 > Chessboard.side - 1)
+				 if(row + 1 > Chessboard.SIDE - 1 || col + 1 > Chessboard.SIDE - 1)
                  {
                      return null;
                  }
@@ -279,10 +279,10 @@ public class Chessboard
      */
     public ChessPiece[][] getCurrentGame()
     {
-        ChessPiece[][] chessPieces = new ChessPiece[side][side];
-        for(int i = 0; i < side - 1; i++)
+        ChessPiece[][] chessPieces = new ChessPiece[SIDE][SIDE];
+        for(int i = 0; i < SIDE - 1; i++)
         {
-            for(int z = 0; z < side - 1; z++)
+            for(int z = 0; z < SIDE - 1; z++)
             {
                 chessPieces[i][z] = game[i][z];
             }
@@ -294,9 +294,9 @@ public class Chessboard
     public String getBoardAsString()
     {
         StringBuilder string = new StringBuilder(" \n");
-        for(int row = 0; row < side; row++)
+        for(int row = 0; row < SIDE; row++)
         {
-            for(int column = 0; column < side; column++)
+            for(int column = 0; column < SIDE; column++)
             {
                 string.append(" ").append(game[row][column]);
             }
@@ -314,9 +314,9 @@ public class Chessboard
     public String toString()
     {
         StringBuilder string = new StringBuilder(" \n");
-        for(int row = 0; row < side; row++)
+        for(int row = 0; row < SIDE; row++)
         {
-            for(int column = 0; column < side; column++)
+            for(int column = 0; column < SIDE; column++)
             {
                 string.append(" ").append(game[row][column]);
                 if(game[row][column] != null)
