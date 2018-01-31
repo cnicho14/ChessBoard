@@ -290,6 +290,11 @@ public class Chessboard
         return chessPieces;
     }
 
+	
+	public ChessPiece getPiece(int row, int col)
+	{
+		return game[row][col];
+	}
 
     public String getBoardAsString()
     {

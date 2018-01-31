@@ -32,9 +32,9 @@ public class ButtonView extends GridLayout
 
         //Create the buttons and add them to this GridLayout
 
-        for(int row = 0; row < Chessboard.SIDE - 1; row++)
+        for(int row = 0; row < Chessboard.SIDE; row++)
         {
-            for(int col = 0; col < Chessboard.SIDE - 1; col++)
+            for(int col = 0; col < Chessboard.SIDE ; col++)
             {
 
                 newButtons[row][col] = new Button(context);

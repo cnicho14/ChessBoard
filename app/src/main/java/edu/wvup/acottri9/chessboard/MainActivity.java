@@ -52,16 +52,16 @@ public class MainActivity extends AppCompatActivity
     {
 
         //Create the buttons and add them to the gridLayout
-         ChessPiece[][] start = chessGame.getCurrentGame();
+
         //String[] startString = chessGame.getBoardAsString().split("\n");
 
-        for(int row = 0; row < Chessboard.SIDE - 1; row++)
+        for(int row = 0; row < Chessboard.SIDE; row++)
         {
-            for (int col = 0; col < Chessboard.SIDE - 1; col++)
+            for (int col = 0; col < Chessboard.SIDE; col++)
             {
-                if(start[row][col] != null)
+                if(chessGame.getPiece(row,col) != null)
                 {
-                    buttonView.setButtonText(row,col,start[row][col].toString());
+                    buttonView.setButtonText(row,col,chessGame.getPiece(row,col).toString());
                 }
                 else
                 {
