@@ -66,7 +66,7 @@ public class Chessboard
 
         for(int otherZ = 0; otherZ <= side - 1 ; otherZ++)
         {
-            for(int otherI = side - 1; otherI > 0 ; otherI++)
+            for(int otherI = side - 1; otherI > 0 ; otherI--)
             {
                 if(otherI == 0)
                 {
@@ -110,6 +110,10 @@ public class Chessboard
      */
     public Coordinate[] play(int row, int col)
     {
+        if(row < 0 || col < 0)
+        {
+            return null;
+        }
         if(game[row][col] == null)
         {
             throw new IllegalArgumentException("Cannot move a nonexistent piece.");
@@ -212,7 +216,7 @@ public class Chessboard
                     }
                     canMove = false;
                 }
-                return coordinateArrayList.toArray(new Coordinate[coordinateArrayList.size()]);
+                return coordinateArrayList.toArray(new Coordinate[16]);
             }
             else if(game[row][col].getPiece() == PieceTypes.Knight)
             {
@@ -250,10 +254,13 @@ public class Chessboard
 			else if(game[row][col].getPiece() == PieceTypes.King)
 			{
 				 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
+				 if(row + 1 > Chessboard.side - 1 || col + 1 > Chessboard.side - 1)
+                 {
+                     return null;
+                 }
                 if(game[row + 1][col] == null)
                 {
                     coordinateArrayList.add(new Coordinate(row + 1, col));
-
                 }
                 if(game[row][col + 1] == null)
                 {
@@ -281,6 +288,21 @@ public class Chessboard
             }
         }
         return chessPieces;
+    }
+
+
+    public String getBoardAsString()
+    {
+        StringBuilder string = new StringBuilder(" \n");
+        for(int row = 0; row < side; row++)
+        {
+            for(int column = 0; column < side; column++)
+            {
+                string.append(" ").append(game[row][column]);
+            }
+            string.append(" \n ");
+        }
+        return string.toString();
     }
 
 

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         width = displayMetrics.widthPixels;
         ButtonHandler bh = new ButtonHandler();
 
-        buttonView = new ButtonView(this,width/Chessboard.side,Chessboard.side,bh);
+        buttonView = new ButtonView(this,(int)Math.floor(width/Chessboard.side), Chessboard.side,bh);
         buildButtonText();
         buttonView.setOnClickListener(new View.OnClickListener()
         {
@@ -46,13 +46,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Sets the button text
+     * Sets the button`s text
      */
     public void buildButtonText()
     {
 
         //Create the buttons and add them to the gridLayout
          ChessPiece[][] start = chessGame.getCurrentGame();
+        //String[] startString = chessGame.getBoardAsString().split("\n");
+
         for(int row = 0; row < Chessboard.side - 1; row++)
         {
             for (int col = 0; col < Chessboard.side - 1; col++)
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Revert.
+     * Reverts the buttons to normal.
      */
     public void revert()
     {
