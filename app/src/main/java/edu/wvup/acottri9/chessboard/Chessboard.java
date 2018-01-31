@@ -66,7 +66,7 @@ public class Chessboard
 
         for(int otherZ = 0; otherZ <= SIDE - 1 ; otherZ++)
         {
-            for(int otherI = SIDE - 1; otherI > 0 ; otherI--)
+            for(int otherI = SIDE - 1; otherI > SIDE - 3 ; otherI--)
             {
                 if(otherI == SIDE - 1)
                 {
