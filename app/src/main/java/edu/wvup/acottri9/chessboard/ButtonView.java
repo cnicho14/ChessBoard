@@ -53,12 +53,12 @@ public class ButtonView extends GridLayout
                 }
                 else if(row % 2 != 0 && col % 2 == 0)
                 {
-                    newButtons[row][col].setBackgroundColor(Color.WHITE);
+                    newButtons[row][col].setBackgroundColor(Color.BLACK);
                     //Uneven row, even column
                 }
                 else
                 {
-                    newButtons[row][col].setBackgroundColor(Color.BLACK);
+                    newButtons[row][col].setBackgroundColor(Color.WHITE);
                     //Uneven row, uneven column
                 }
                 addView(newButtons[row][col],width,width);
@@ -125,12 +125,12 @@ public class ButtonView extends GridLayout
                 }
                 else if(row % 2 != 0 && col % 2 == 0)
                 {
-                    newButtons[row][col].setBackgroundColor(Color.WHITE);
+                    newButtons[row][col].setBackgroundColor(Color.BLACK);
                     //Uneven row, even column
                 }
                 else
                 {
-                    newButtons[row][col].setBackgroundColor(Color.BLACK);
+                    newButtons[row][col].setBackgroundColor(Color.WHITE);
                     //Uneven row, uneven column
                 }
 
