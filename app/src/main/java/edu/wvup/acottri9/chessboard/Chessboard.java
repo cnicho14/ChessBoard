@@ -30,47 +30,75 @@ public class Chessboard
     {
         for(int z = 0; z <= side - 1 ; z++)
         {
-            for(int i = 0; z < 2 ; z++)
+            for(int i = 0; i < 2 ; i++)
             {
                 if(i == 0)
                 {
                     if(z == 0 || z == side - 1)
                     {
-                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Rook);
+                        game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Rook);
                     }
                     else if(z == 1 || z == side - 2)
                     {
-                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Knight);
+                        game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Knight);
                     }
-                    else if(z == 2 || z == side - 3)
+                    else if(z == 2 || z == 5)
                     {
-                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Bishop);
+                        game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Bishop);
                     }
                     else if(z == 3)
                     {
-                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Queen);
+                        game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Queen);
                     }
                     else if(z == 4)
                     {
-                        game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.King);
+                        game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.King);
                     }
                 }
                 else if(i == 1)
                 {
-                    game[i][z] = new ChessPiece(PieceColor.White,PieceTypes.Pawn);
+                    game[i][z] = new ChessPiece(PieceColor.Black,PieceTypes.Pawn);
                 }
 
 
             }
         }
 
-        //for(int blackI = 0; blackI < PieceTypes.values().length - 1; blackI++)
-        //{
-        //    for(int blackZ = side - 1; blackZ > side - 2; blackZ--)
-        //    {
-        //        game[blackI][blackZ] = new ChessPiece(PieceColor.Black,PieceTypes.values()[blackI]);
-         //   }
-        //}
+        for(int otherZ = 0; otherZ <= side - 1 ; otherZ++)
+        {
+            for(int otherI = side - 1; otherI > 0 ; otherI++)
+            {
+                if(otherI == 0)
+                {
+                    if(otherZ == 0 || otherZ == side - 1)
+                    {
+                        game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Rook);
+                    }
+                    else if(otherZ == 1 || otherZ == side - 2)
+                    {
+                        game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Knight);
+                    }
+                    else if(otherZ == 2 || otherZ == 5)
+                    {
+                        game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Bishop);
+                    }
+                    else if(otherZ == 3)
+                    {
+                        game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Queen);
+                    }
+                    else if(otherZ == 4)
+                    {
+                        game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.King);
+                    }
+                }
+                else if(otherI == 1)
+                {
+                    game[otherI][otherZ] = new ChessPiece(PieceColor.White,PieceTypes.Pawn);
+                }
+
+
+            }
+        }
     }
 
     /**
@@ -100,31 +128,87 @@ public class Chessboard
                     return null;
                 }
             }
-
-            //I don`t remember how any other pieces move. The rest need to be added.
             else if (game[row][col].getPiece() == PieceTypes.Rook)
             {
                 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
                 boolean canMove = true;
                 boolean blockedLeft = false;
-                boolean blockRight = false;
+                boolean blockedRight = false;
                 boolean blockedUp = false;
                 boolean blockedDown = false;
                 int checkLeft = 1;
                 int checkRight = 1;
-                //Check horizontal
+                int checkUp = 1;
+                int checkDown = 1;
                 while(canMove)
                 {
+                    if(blockedRight == false)
+                    {
+                        while(row + checkLeft < Chessboard.side)
+                        {
+                            checkLeft++;
+                            if(game[row + checkLeft][col] == null)
+                            {
+                               coordinateArrayList.add(new Coordinate((row + checkLeft),col));
+                            }
+                            else
+                            {
+                                blockedRight = true;
+                                break;
+                            }
+                        }
+                        blockedRight = true;
+                    }
                     if(blockedLeft == false)
                     {
-                        while(row - checkLeft > 0)
+                        while(row - checkRight > 0)
                         {
-                            if(game[row - checkLeft][col] == null)
+                            checkRight++;
+                            if(game[row - checkRight][col ] == null)
                             {
-                               coordinateArrayList.add(new Coordinate((row - checkLeft),col));
+                                coordinateArrayList.add(new Coordinate((row - checkRight),col));
+                            }
+                            else
+                            {
+                                blockedLeft = true;
+                                break;
                             }
                         }
                         blockedLeft = true;
+                    }
+                    if(blockedUp == false)
+                    {
+                        while(col - checkUp > 0)
+                        {
+                            checkUp++;
+                            if(game[row][col - checkUp] == null)
+                            {
+                                coordinateArrayList.add(new Coordinate((row),col - checkUp));
+                            }
+                            else
+                            {
+                                blockedUp = true;
+                                break;
+                            }
+                        }
+                        blockedUp = true;
+                    }
+                    if(blockedDown == false)
+                    {
+                        while(col + checkDown < Chessboard.side)
+                        {
+                            checkDown++;
+                            if(game[row][col + checkDown] == null)
+                            {
+                                coordinateArrayList.add(new Coordinate((row),col + checkDown));
+                            }
+                            else
+                            {
+                                blockedDown = true;
+                                break;
+                            }
+                        }
+                        blockedDown = true;
                     }
                     canMove = false;
                 }
@@ -143,6 +227,40 @@ public class Chessboard
                 }
                 return coordinateArrayList.toArray(new Coordinate[2]);
             }
+			else if(game[row][col].getPiece() == PieceTypes.Queen)
+			{
+				
+			}
+			else if(game[row][col].getPiece() == PieceTypes.Bishop)
+			{
+                ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
+				for(int i = 0; i < Chessboard.side; i++)
+                {
+                    for(int z = 0; z < Chessboard.side; i++)
+                    {
+                        if (game[i][z] == null) {
+                            coordinateArrayList.add(new Coordinate(i, z));
+                        } else {
+                            break;
+                        }
+                    }
+                }
+                return coordinateArrayList.toArray(new Coordinate[64]);
+			}
+			else if(game[row][col].getPiece() == PieceTypes.King)
+			{
+				 ArrayList<Coordinate> coordinateArrayList = new ArrayList<Coordinate>();
+                if(game[row + 1][col] == null)
+                {
+                    coordinateArrayList.add(new Coordinate(row + 1, col));
+
+                }
+                if(game[row][col + 1] == null)
+                {
+                    coordinateArrayList.add(new Coordinate(row + 1, col));
+                }
+                return coordinateArrayList.toArray(new Coordinate[8]);
+			}
         }
         return null;
     }
@@ -179,6 +297,10 @@ public class Chessboard
             for(int column = 0; column < side; column++)
             {
                 string.append(" ").append(game[row][column]);
+                if(game[row][column] != null)
+                {
+                    string.append( "( " + game[row][column].getPieceColor().toString() + " )");
+                }
             }
             string.append(" \n ");
         }

@@ -80,6 +80,7 @@ public class ButtonView extends GridLayout
         {
             for (int col = 0; col < Chessboard.side - 1; col++)
             {
+
                 if(row % 2 == 0 && col % 2 == 0)
                 {
                     newButtons[row][col].setBackgroundColor(Color.WHITE);
@@ -100,6 +101,7 @@ public class ButtonView extends GridLayout
                     newButtons[row][col].setBackgroundColor(Color.BLACK);
                     //Uneven row, uneven column
                 }
+
             }
         }
     }

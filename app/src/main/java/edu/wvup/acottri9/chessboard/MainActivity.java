@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         try
                         {
-                            Coordinate[] play = chessGame.play(row,column);
+                            Coordinate[] play = chessGame.play(row,column); 
                             buttonView.setButtonColor(row,column, Color.GREEN);
 
                             if(play == null)
